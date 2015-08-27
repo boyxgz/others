@@ -1,0 +1,18 @@
+{
+     "button":[
+      {
+		   "type":"view",
+		   "name":"优米商城",
+		   "url":"http://youmi.sh-hansi.com/shop"
+      },
+      {
+		   "type":"click",
+		   "name":"提货券",
+		   "key":"my-delivery"
+      },
+      {
+		   "type":"view",
+		   "name":"关于我们",
+		   "url":"http://youmi.sh-hansi.com/redirection/path/aboutUs"
+      }]
+ }
