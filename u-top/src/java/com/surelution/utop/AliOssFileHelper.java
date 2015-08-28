@@ -3,13 +3,9 @@
  */
 package com.surelution.utop;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
 
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
@@ -27,8 +23,6 @@ public class AliOssFileHelper {
 	private static String ACCESS_ID = "2z5li9exzab7p4tnrk283vx2";
 	private static String END_POINT = "http://oss-cn-hangzhou.aliyuncs.com";
 	
-	private static String ROOT_PATH = "/Users/johnny/youmifile/";
-	
 	public static OSSClient getClient() {
 		OSSClient client = new OSSClient(END_POINT, ACCESS_ID, ACCESS_KEY);
 		return client;
@@ -44,20 +38,14 @@ public class AliOssFileHelper {
 		objectMeta.setContentType(contentType);
 
 		client.putObject(bucketName, name, in, objectMeta);
-		
-		//TODO copy to local file, 迁移到oss后注释本代码
-		IOUtils.copy(in, new FileOutputStream(ROOT_PATH + bucketName + "/" + name));
 	}
 
 	public static InputStream downloadFile(String bucketName, String key)
             throws OSSException, ClientException, FileNotFoundException {
 
-		//TODO copy to local file, 迁移到oss后注释本代码
-//		OSSClient client = getClient();
-//        OSSObject object = client.getObject(bucketName, key);
-//        return object.getObjectContent();
-		FileInputStream fis = new FileInputStream(ROOT_PATH + bucketName + "/" + key);
-		return fis;
+		OSSClient client = getClient();
+        OSSObject object = client.getObject(bucketName, key);
+        return object.getObjectContent();
     }
 	
 }

@@ -25,7 +25,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form method="post" >
+			<g:form method="post"action="changePw" >
 				<g:hiddenField name="id" value="${userInstance?.id}" />
 				<g:hiddenField name="version" value="${userInstance?.version}" />
 				<fieldset class="form">

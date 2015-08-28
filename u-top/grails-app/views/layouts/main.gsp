@@ -43,6 +43,10 @@
 				<p>
 					<g:link url="${resource(dir:'productPricePlan')}" >价格审批</g:link>
 				</p>
+				<p>
+					<g:link url="${resource(dir:'reports/deliverySummary')}" >团购价格审批单</g:link>
+				</p>
+				
 				</sec:ifAnyGranted>
 				<sec:ifAnyGranted roles="ROLE_FINANCIAL">
 				<p>
