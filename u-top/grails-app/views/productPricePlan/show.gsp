@@ -46,7 +46,7 @@
 				<li class="fieldcontain">
 					<span id="activedStartAt-label" class="property-label"><g:message code="productPricePlan.activedStartAt.label" default="Actived Start At" /></span>
 					
-						<span class="property-value" aria-labelledby="activedStartAt-label"><g:formatDate date="${productPricePlanInstance?.activedStartAt}" /></span>
+						<span class="property-value" aria-labelledby="activedStartAt-label"><g:formatDate date="${productPricePlanInstance?.activedStartAt}" format="yyyy-MM-dd HH:mm"/></span>
 					
 				</li>
 				</g:if>
@@ -55,7 +55,7 @@
 				<li class="fieldcontain">
 					<span id="activedEndAt-label" class="property-label"><g:message code="productPricePlan.activedEndAt.label" default="Actived End At" /></span>
 					
-						<span class="property-value" aria-labelledby="activedEndAt-label"><g:formatDate date="${productPricePlanInstance?.activedEndAt}" /></span>
+						<span class="property-value" aria-labelledby="activedEndAt-label"><g:formatDate date="${productPricePlanInstance?.activedEndAt}" format="yyyy-MM-dd HH:mm"/></span>
 					
 				</li>
 				</g:if>
@@ -123,7 +123,7 @@
 				<li class="fieldcontain">
 					<span id="confirmedBy-label" class="property-label"><g:message code="productPricePlan.confirmedBy.label" default="Confirmed By" /></span>
 					
-						<span class="property-value" aria-labelledby="confirmedBy-label"><g:link controller="user" action="show" id="${productPricePlanInstance?.confirmedBy?.id}">${productPricePlanInstance?.confirmedBy?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="confirmedBy-label">${productPricePlanInstance?.confirmedBy?.username}</span>
 					
 				</li>
 				</g:if>

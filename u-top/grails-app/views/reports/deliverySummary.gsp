@@ -99,7 +99,9 @@
 					
 						<th>数量</th>
 					
-						<th>进价</th>
+						<th>折算组数</th>
+					
+						<th>单瓶/组进价</th>
 					
 						<th>售价</th>
 					
@@ -111,9 +113,9 @@
 					
 						<th>优惠后金额</th>
 					
-						<th>优惠后毛利率</th>
+						<th>毛利</th>
 					
-						<th>备注</th>
+						<th>优惠后毛利率</th>
 					
 					</tr>
 				</thead>
@@ -125,7 +127,9 @@
 					
 						<td>${product.code }</td>
 					
-						<td>${product.name }</td>
+						<td>${product.name }&nbsp;&nbsp;&nbsp;1 * ${product.packingCount }</td>
+					
+						<td>${item[1] * product.packingCount }</td>
 					
 						<td>${item[1] }</td>
 					
@@ -141,9 +145,9 @@
 					
 						<td>${item[0].price * item[1] }</td>
 					
-						<td><g:formatNumber number="${(item[0].price - item[0].costPrice) / item[0].price * 100 }" format="##.##"/>% </td>
+						<td>${(item[0].price - item[0].costPrice) * item[1] }</td>
 					
-						<td>&nbsp;</td>
+						<td><g:formatNumber number="${(item[0].price - item[0].costPrice) / item[0].price * 100 }" format="###.##"/>% </td>
 						
 					
 					</tr>

@@ -8,6 +8,7 @@ class Product {
 		exercisePrice nullable:true
 		extroInfo nullable:true
 		reason nullable:true
+		index nullable:true
     }
 	
 	static mapping = {

@@ -28,7 +28,7 @@
 			<g:each in="${ppps }" var="pricePlan">
 			<li id="pdList_product_${pricePlan.id }">
 				<div id="sku_pic_${pricePlan.id }" class="sku_pic">
-						<a href="${createLink(controller:'shop', action:'product', id:pricePlan.id) }"><img alt="" src="${Holders.config.alioss.images.rootUrl }${pricePlan.product.defaultPictureId }"></a>
+						<a href="${createLink(controller:'shop', action:'product', id:pricePlan.id) }"><img alt="" src="${Holders.config.alioss.images.rootUrl }${pricePlan.productPicId }"></a>
 	            </div>
 	            <div id="sku_name_${pricePlan.id }" class="sku_name">
 	            	<a href="${createLink(controller:'shop', action:'product', id:pricePlan.id) }" target="_self">

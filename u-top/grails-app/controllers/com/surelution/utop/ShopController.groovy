@@ -55,6 +55,7 @@ class ShopController {
 			gt('activedEndAt', today)
 			cache(true)
 			createAlias('product', 'p')
+			order('index')
 		}
 //		def ppps = ProductPricePlan.executeQuery("""
 //			select ppp, ppp.product, pp.picture.id from ProductPricePlan ppp, ProductPicture pp 
@@ -71,6 +72,7 @@ class ShopController {
 //			order('index')
 //		}
 		def newOrder = saleOrderService.findNewOrder(subscriber)
+		SaleOrderItem.checkItems(newOrder)
 		[ppps:ppps, newOrder:newOrder]
 	}
 
@@ -91,6 +93,7 @@ class ShopController {
 	 * @return
 	 */
 	def cart() {
+		def now = new Date()
 		def voucherId = params.voucherId
 		def inCart = params.inCart //判断链接来自购物车内还是外部跳入，为了当从外面条入时默认选中voucher
 		def selectedVoucher
@@ -123,7 +126,8 @@ class ShopController {
 		def orderItems
 		def shouldPay = 0
 		if(newOrder) {
-			orderItems = SaleOrderItem.findAllByOrder(newOrder)
+			SaleOrderItem.checkItems(newOrder)
+			orderItems = SaleOrderItem.findAllByOrderAndDeleted(newOrder, false)
 			shouldPay = orderItems?.sum{(it.plan?.price) * it.itemCount }
 		}
 		
@@ -218,7 +222,8 @@ class ShopController {
 		def orderItems
 		def shouldPay = 0
 		if(newOrder) {
-			orderItems = SaleOrderItem.findAllByOrder(newOrder)
+			SaleOrderItem.checkItems(newOrder)
+			orderItems = SaleOrderItem.findAllByOrderAndDeleted(newOrder, false)
 			orderItems.each {item->
 				item.settlementPrice = item.plan.price
 				item.save(flush:true)

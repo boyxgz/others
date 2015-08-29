@@ -30,7 +30,7 @@ class SaleOrder {
 			eq('order', this)
 		}
 	}
-	
+
 	public Integer getRealIncome() {
 		def amount = Payment.findByOrderAndConfirmedFromWx(this, true)?.amount
 		amount?amount:0
@@ -43,7 +43,7 @@ class SaleOrder {
 	public Float getSupposedAmount() {
 		return SaleOrderItem.findAllByOrder(this).sum{it.itemCount * it.plan.price}
 	}
-
+	
 	enum SaleOrderStatus {
 		NEW, //新建
 		DELETED, //删除

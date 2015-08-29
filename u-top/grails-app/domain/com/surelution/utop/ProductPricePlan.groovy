@@ -5,7 +5,12 @@ class ProductPricePlan {
     static constraints = {
 		confirmedAt nullable:true
 		confirmedBy nullable:true
+		productPicId nullable:true
     }
+	
+	static mapping = {
+		index column:'_index'
+	}
 	
 	/**
 	 * 产品信息
@@ -57,4 +62,12 @@ class ProductPricePlan {
 	 * 确认后，也可以将该产品下架
 	 */
 	Boolean onSale = false
+
+	Integer index = 0
+
+	Long productPicId
+
+	Boolean validBy(Date date) {
+		activedStartAt <= date && activedEndAt > date
+	}
 }

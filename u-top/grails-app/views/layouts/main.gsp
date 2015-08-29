@@ -70,6 +70,12 @@
 					<g:link url="${resource(dir:'bankrollDashboard')}" >保证金安全</g:link>
 				</p>
 				<p>
+					<g:link url="${resource(dir:'optimizing')}" >技术优化</g:link>
+				</p>
+				<p>
+					<g:link url="${resource(dir:'productPricePlan/productPosition')}" >商品顺序</g:link>
+				</p>
+				<p>
 					<g:link url="${resource(dir:'user')}" >用户管理</g:link>
 				</p>
 				</sec:ifAnyGranted>

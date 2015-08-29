@@ -140,4 +140,33 @@ class ProductPricePlanController {
 		}
 		[productPricePlanInstanceList:prices, operator:springSecurityService.currentUser]
 	}
+	
+	def productPosition() {
+		def date = params.date('date', 'yyyy-MM-dd')
+		def ppps
+		if(date) {
+			ppps = ProductPricePlan.executeQuery("""
+				from ProductPricePlan p where p.activedStartAt <=? and activedEndAt > ? and onSale = ? order by p.index
+			""", [date, date, true])
+		}
+		[productPricePlanInstanceList:ppps]
+	}
+	
+	def updateProductPosition() {
+		params.each {
+			String key = it.key
+			if(key.startsWith("plan-id-")) {
+				def planId = key.substring("plan-id-".length())
+				def position = it.value
+				println "${planId}@${position}"
+				ProductPricePlan plan = ProductPricePlan.get(planId)
+				if(plan) {
+					plan.index = position as Integer
+					plan.save()
+				}
+			}
+		}
+		
+		redirect(action:'productPosition')
+	}
 }
