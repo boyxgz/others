@@ -78,7 +78,7 @@
 						<label for="userId">
 							发货人
 						</label>
-						<g:select name="userId" from="${UserRole.findAllByRole(Role.findByAuthority('ROLE_STATION')).collect(){it.user} }" optionKey="id" optionValue="username" value="${params.userId }"/>
+						<g:select name="userId" from="${UserRole.findAllByRole(Role.findByAuthority('ROLE_STATION')).collect(){it.user} }" noSelection="${['':''] }" optionKey="id" optionValue="username" value="${params.userId }"/>
 					</div>
 				</fieldset>
 				<fieldset class="buttons">
@@ -107,6 +107,12 @@
 					
 						<th>单价</th>
 					
+						<th>货柜售价</th>
+					
+						<th>成本价</th>
+					
+						<th>返利</th>
+					
 					</tr>
 				</thead>
 				<tbody>
@@ -124,13 +130,30 @@
 							<td>${item.plan.product.name }(${item.plan.product.packingCount })</td>
 							<td>${item.itemCount }</td>
 							<td>${item.settlementPrice }</td>
-							<g:if test="${i != 0 }">
-								</tr><tr>
-							</g:if>
+							<td>${item.plan.retailPrice }</td>
+							<td>${item.plan.costPrice }</td>
+							<%
+								def settlementPrice = item.settlementPrice
+								if(!settlementPrice) {
+									settlementPrice = 0
+								}
+								def a = (settlementPrice - item.plan.costPrice) * 0.3
+								def aMin = settlementPrice * 0.007
+								def aMax = settlementPrice * 0.03
+								if(!a) {
+									a = 0
+								}
+								if(a < aMin) {
+									a = aMin
+								} else if(a > aMax){
+									a = aMax
+								}
+							 %>
+							<td>${a }</td>
+							</tr>
 						</g:each>
 						
 					
-					</tr>
 				</g:each>
 				</tbody>
 			</table>

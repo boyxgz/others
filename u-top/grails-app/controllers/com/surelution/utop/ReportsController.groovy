@@ -59,12 +59,15 @@ class ReportsController {
 					ge('deliveredAt', from)
 				}
 				if(to) {
-					le('deliveredAt', to)
+					lt('deliveredAt', to)
 				}
 				if(operator) {
 					eq('operator', operator)
 				}
-				order('deliveredAt')
+				and{
+					order('operator')
+					order('deliveredAt')
+				}
 			}
 		}
 		[tickets:tickets]
