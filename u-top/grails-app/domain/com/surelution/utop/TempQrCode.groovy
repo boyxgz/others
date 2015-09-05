@@ -47,6 +47,14 @@ class TempQrCode {
 
 	Date dateCreated
 	
+	/**
+	 * TODO
+	 * 好吧，这儿有一坨狗屎<br/>
+	 * 当用户用微信扫描二维码后，在action中，这个方法被执行，并返回一个Attribute<br/>
+	 * 这个方法将是一个非常重的方法，可能会需要调用到其他层次的东西，transaction等……没想好该咋搞，以后再说
+	 * @param subscriber
+	 * @return
+	 */
 	public Attribute scanedBy(Subscriber subscriber) {
 		
 	}

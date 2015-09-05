@@ -32,19 +32,35 @@
 					
 						<g:sortableColumn property="transferDate" title="${message(code: 'imprest.transferDate.label', default: 'Transfer Date')}" />
 					
+						<g:sortableColumn property="confirmedAt" title="${message(code: 'imprest.confirmedAt.label', default: 'Confirmed At')}" />
+					
+						<g:sortableColumn property="confirmedBy" title="${message(code: 'imprest.confirmedBy.label', default: 'Confirmed By')}" />
+					
+						<g:sortableColumn property="confirmed" title="${message(code: 'imprest.confirmed.label', default: 'Confirmed')}" />
+					
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${imprestInstanceList}" status="i" var="imprestInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${imprestInstance.id}">${fieldValue(bean: imprestInstance, field: "transactionNo")}</g:link></td>
+						<g:if test="${imprestInstance.confirmed}">
+							<td>${fieldValue(bean: imprestInstance, field: "transactionNo")}</td>
+						</g:if>
+						<g:else>
+							<td><g:link action="show" id="${imprestInstance.id}">${fieldValue(bean: imprestInstance, field: "transactionNo")}</g:link></td>
+						</g:else>
 					
 						<td>${fieldValue(bean: imprestInstance, field: "amount")}</td>
 					
 						<td><g:formatDate date="${imprestInstance.dateCreated}" /></td>
 					
 						<td><g:formatDate date="${imprestInstance.transferDate}" /></td>
+					
+						<td><g:formatDate date="${imprestInstance.confirmedAt}" /></td>
+					
+						<td>${imprestInstance.confirmedBy?.username}</td>
+						
+						<td><g:formatBoolean boolean="${imprestInstance.confirmed}"/></td>
 					
 					</tr>
 				</g:each>

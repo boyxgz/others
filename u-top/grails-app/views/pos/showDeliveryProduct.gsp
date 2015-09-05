@@ -56,6 +56,7 @@
 				<thead>
 					<tr>
 						<th>商品</th>
+						<th>编码</th>
 						<th>规格</th>
 						<th>数量</th>
 						<th>品类</th>
@@ -69,6 +70,8 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<td>${item.plan.product.name}</td>
+					
+						<td>${item.plan.product.code}</td>
 					
 						<td>${item.plan.product.spec}</td>
 					

@@ -22,6 +22,8 @@ class ImprestController {
     }
 
     def save() {
+		if(params.transferDate)
+			params.transferDate = params.date('transferDate', 'yyyy-MM-dd HH:mm')
         def imprestInstance = new Imprest(params)
         if (!imprestInstance.save(flush: true)) {
             render(view: "create", model: [imprestInstance: imprestInstance])
@@ -56,7 +58,7 @@ class ImprestController {
 
     def update(Long id, Long version) {
         def imprestInstance = Imprest.get(id)
-        if (!imprestInstance) {
+        if (!imprestInstance || imprestInstance.confirmed) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'imprest.label', default: 'Imprest'), id])
             redirect(action: "list")
             return
@@ -107,7 +109,12 @@ class ImprestController {
     }
 
 	def waitingForConfirm() {
-		def imprestInstanceList = Imprest.findAllByConfirmed(false)
+		def imprestInstanceList = Imprest.createCriteria().list() {
+			and {
+				order('confirmed')
+				order('confirmedBy')
+			}
+		}
 		[imprestInstanceList:imprestInstanceList]
 	}
 	
@@ -123,4 +130,5 @@ class ImprestController {
 		}
 		redirect(action:'waitingForConfirm')
 	}
+	
 }

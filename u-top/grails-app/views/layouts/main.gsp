@@ -33,6 +33,9 @@
 					<g:link url="${resource(dir:'pos')}" >提货</g:link>
 				</p>
 				<p>
+					<g:link url="${resource(dir:'qrUserLogin/dashboard')}" >微信登录</g:link>
+				</p>
+				<p>
 					<g:link url="${resource(dir:'reports/deliveryDetails')}" >提货报表</g:link>
 				</p>
 				</sec:ifAnyGranted>
@@ -50,7 +53,7 @@
 				</sec:ifAnyGranted>
 				<sec:ifAnyGranted roles="ROLE_FINANCIAL">
 				<p>
-					<g:link url="${resource(dir:'imprest')}" >保证金管理</g:link>
+					<g:link url="${resource(dir:'imprest/waitingForConfirm')}" >保证金审批</g:link>
 				</p>
 				<p>
 					<g:link url="${resource(dir:'reports/allDeliveryDetails')}" >提货总报表</g:link>

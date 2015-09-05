@@ -54,7 +54,14 @@
 					
 						<td><g:formatDate date="${imprestInstance.transferDate}" /></td>
 					
-						<td><a href="javascript:confirmImprest('${imprestInstance.id}')">确认</a></td>
+						<td>
+						<g:if test="${!imprestInstance.confirmed}">
+						<a href="javascript:confirmImprest('${imprestInstance.id}')">确认</a>
+						</g:if>
+						<g:else>
+							已确认
+						</g:else>
+						</td>
 					
 					</tr>
 				</g:each>

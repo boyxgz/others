@@ -133,8 +133,6 @@ class QrUserLoginController {
 	def qr(String id) {
 		def os = response.outputStream
 		def content = QrCode.getTempQr(id, 30 * 60 * 1000)
-//		GenerateCode.generate(content, "png", os, null)
-//		os.flush()
 		os << content
 	}
 
@@ -161,6 +159,7 @@ class QrUserLoginController {
 			&& login.dateLogout == null) {
 			login.dateLogout = new Date()
 			login.actived = false
+			login.loggedIn = false
 			login.save(flush:true)
 			flash.message = "退出成功"
 		}

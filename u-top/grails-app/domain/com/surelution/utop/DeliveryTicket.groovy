@@ -11,6 +11,7 @@ class DeliveryTicket {
 		saleOrder unique:true
 		operator nullable:true
 		deliveredAt nullable:true
+		operatorSubscriber nullable:true
     }
 	
 	static transients = ['wellLookSn']
@@ -37,6 +38,11 @@ class DeliveryTicket {
 	DeliveryStatus status = DeliveryStatus.NEW
 	
 	User operator
+	
+	/**
+	 * 有时，操作者可能是通过微信操作的
+	 */
+	Subscriber operatorSubscriber
 	Date deliveredAt
 	
 	String getWellLookSn() {

@@ -24,7 +24,6 @@ class TempQrScannedAction extends UtopBaseAction {
 			def id = qrId as Integer
 			if(TempQrCode.QR_ID_START_FROM <= id) {
 				code = TempQrCode.findByQrKey(id)
-				println code
 			}
 		}
 		

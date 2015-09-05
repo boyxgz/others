@@ -87,4 +87,58 @@ class ReportsController {
 		}
 		[items:items]
 	}
+	
+	def dailySaleSummaryWithProduct() {
+		def from = params.date('dateFrom','yyyy-MM-dd HH:mm')
+		def to = params.date('dateTo','yyyy-MM-dd HH:mm')
+		def items
+		def users
+		if(from && to) {
+			def role = Role.findByAuthority("ROLE_STATION")
+			users = UserRole.findAllByRole(role).collect() {
+				it.user
+			}
+			def sb = new StringBuilder()
+			sb.append("select soi.plan ")
+			users.each {
+				sb.append(", sum(case dt.operator.id when ")
+				sb.append(it.id)
+				sb.append(" then soi.itemCount else 0 end) ")
+			}
+			sb.append("""
+				 from SaleOrderItem soi, DeliveryTicket dt where soi.order = dt.saleOrder
+				and dt.status = :status and dt.deliveredAt >= :from and dt.deliveredAt < :to 
+				group by soi.plan
+			""")
+			items = SaleOrderItem.executeQuery(sb.toString(), [status:DeliveryStatus.DELIVERIED, from:from, to:to])
+		}
+		[items:items, users:users]
+	}
+	
+	def dailySaleSummary() {
+		def from = params.date('dateFrom','yyyy-MM-dd HH:mm')
+		def to = params.date('dateTo','yyyy-MM-dd HH:mm')
+		def items
+		def users
+		if(from && to) {
+			def role = Role.findByAuthority("ROLE_STATION")
+			users = UserRole.findAllByRole(role).collect() {
+				it.user
+			}
+			def sb = new StringBuilder()
+			sb.append("select cast(dt.deliveredAt as date) as d")
+			users.each {
+				sb.append(", sum(case dt.operator.id when ")
+				sb.append(it.id)
+				sb.append(" then (soi.itemCount * soi.plan.price) else 0 end) ")
+			}
+			sb.append("""
+				 from SaleOrderItem soi, DeliveryTicket dt where soi.order = dt.saleOrder
+				and dt.status = :status and dt.deliveredAt >= :from and dt.deliveredAt < :to 
+				group by cast(dt.deliveredAt as date) order by d desc
+			""")
+			items = SaleOrderItem.executeQuery(sb.toString(), [status:DeliveryStatus.DELIVERIED, from:from, to:to])
+		}
+		[items:items, users:users]
+	}
 }
