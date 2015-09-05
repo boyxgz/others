@@ -17,6 +17,7 @@ import com.surelution.whistle.core.pay.MchInfo
 import com.surelution.whistle.core.pay.PaymentSignParams
 import com.surelution.whistle.core.pay.UnifiedOrderResponse
 import com.surelution.whistle.core.pay.Payment.TradeType
+import com.surelution.whistle.push.qrcode.QrCode
 
 class ShopController {
 	
@@ -365,7 +366,47 @@ class ShopController {
 		render([notifyStatus:true] as JSON)
 	}
 
-	def my() {
-		
+	def myOrders() {
+		println subscriber
+		def tickets = DeliveryTicket.findAllBySubscriberAndStatus(subscriber, DeliveryStatus.READY)
+		[tickets:tickets]
+	}
+
+	def showOrder(Long id) {
+		def ticket = DeliveryTicket.get(id)
+		def delivery
+		def saleOrder
+		def orderItems
+		if(ticket) {
+			if(ticket.subscriber.id != subscriber.id) {
+				ticket = null
+			} else {
+				saleOrder = ticket.saleOrder
+				if(saleOrder) {
+					orderItems = SaleOrderItem.findAllByOrder(saleOrder)
+				}
+				if(ticket.status == DeliveryStatus.READY) {
+					def hist = QrDelivery.findAllByTicketAndActived(ticket, Boolean.TRUE)
+					hist.each {
+						it.actived = false
+						it.save(flush:true)
+					}
+					delivery = new QrDelivery()
+					delivery.ticket = ticket
+					delivery.save(flush:true)
+				}
+			}
+		}
+		[ticket:ticket, delivery:delivery, saleOrder:saleOrder, orderItems:orderItems]
+	}
+	
+	def deliveryQr(Long id) {
+		def delivery = QrDelivery.get(id)
+		if(delivery 
+			&& delivery.ticket.subscriber.id == subscriber.id
+			&& delivery.ticket.status == DeliveryStatus.READY) {
+			def content = QrCode.getTempQr(delivery.qrKey, 30 * 60 * 1000)
+			response.outputStream << content
+		}
 	}
 }

@@ -1,11 +1,13 @@
 package com.surelution.utop
 
-import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.RandomUtils
+
+import com.surelution.whistle.core.Attribute
 
 /**
  * 系统中可能需要为了多种不同的目的产生不同的临时二维码，为了避免不同目的生成的二维码在生成、解析的时候出现冲突、错误，<br/>
  * 设置这个类，用来区分不同的二维码。<br/>
- * 每种目的的二维码生成，都应该实现一个这个类的子类。qr code一直都会增长，可能会有一个上限，延迟决定这个问题。
+ * 每种目的的二维码生成，都应该实现一个这个类的子类。qr code一直都会增长，可能会有一个上限，临时二维码的编号是一个32位的整数，如果超出这个范围，延迟解决这个问题。
  *
  * @author <a href="mailto:guangzong.syu@gmail.com">guagnzong</a>
  *
@@ -44,4 +46,8 @@ class TempQrCode {
 	String qrKey
 
 	Date dateCreated
+	
+	public Attribute scanedBy(Subscriber subscriber) {
+		
+	}
 }

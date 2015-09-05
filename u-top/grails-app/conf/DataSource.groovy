@@ -16,7 +16,7 @@ environments {
 		    username = "root"
 		    password = ""
             dbCreate = "update" // one of 'create', 'create-drop','update'
-            url = "jdbc:mysql://localhost/u_top_4?useUnicode=true&characterEncoding=utf8"
+            url = "jdbc:mysql://localhost/u_top_6?useUnicode=true&characterEncoding=utf8"
 			loggingSql = true
 
 			validationQuery="SELECT 1"

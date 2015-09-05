@@ -37,7 +37,7 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-		<g:if test="${currLogin }">
+		<g:if test="${currLogin?.subscriber }">
 			<g:set var="ui" value="${UserInfo.loadUserInfo(currLogin.subscriber.openId)}"/>
 			当前登录用户:${ui.nickname }<br/>
 			头像：<img src="${ui.headImgUrl }" width="64" height="64"><br/>

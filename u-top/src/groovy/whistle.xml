@@ -14,7 +14,7 @@
 	<processor-chain>
 		<processor>com.surelution.utop.ShakearoundAction</processor>
 		<processor>com.surelution.utop.MyDelieryAction</processor>
-		<processor>com.surelution.utop.InnerUserLoginAction</processor>
+		<processor>com.surelution.utop.TempQrScannedAction</processor>
 		<processor>com.surelution.utop.SubscribingAction</processor>
 		<processor>com.surelution.utop.CommentAction</processor>
 		<processor>com.surelution.utop.DefaultAction</processor>
