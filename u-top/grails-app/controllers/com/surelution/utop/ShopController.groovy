@@ -330,6 +330,8 @@ class ShopController {
 					order.status = SaleOrderStatus.PAID
 					order.save(flush:true)
 					
+					selectVoucher.status = VoucherStatus.USED
+					
 					def tm = new TemplateMessage()
 					tm.url = "${Holders.config.grails.serverURL}/redirection/path/deliveryInfo"
 					tm.templateId = "jC0FO0-KkTK7u9i1Mpk0R_Csc2F0g2d6nTstyxH6GRc"
@@ -367,8 +369,12 @@ class ShopController {
 	}
 
 	def myOrders() {
-		println subscriber
+		println subscriber.openId
 		def tickets = DeliveryTicket.findAllBySubscriberAndStatus(subscriber, DeliveryStatus.READY)
+		if(tickets?.size() == 1) {
+			redirect(action:'showOrder', id:tickets[0].id)
+			return
+		}
 		[tickets:tickets]
 	}
 

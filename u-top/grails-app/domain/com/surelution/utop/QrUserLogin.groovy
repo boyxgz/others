@@ -36,9 +36,8 @@ class QrUserLogin extends TempQrCode {
 			} else {
 				this.dateScanned = new Date()
 				this.subscriber = subscriber
-				this.loggedIn = true
 				save(flush:true)
-				msg = "您正在登录系统，可以执行相关操作，您的验证码是：${validationCode}"
+				msg = "您正在登录系统，确认后将作为${user.username}的发货员，可以执行发货操作，您的验证码是：${validationCode}"
 			}
 		}
 		new Attribute(Attribute.KEY_Content, msg)

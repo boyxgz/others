@@ -51,7 +51,7 @@ class DeliveryTicket {
 		sb.insert(7, "-")
 		return sb.toString()
 	}
-	
+
 	enum DeliveryStatus {
 		NEW, //新创建
 		READY, //支付完成，等待发货

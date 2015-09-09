@@ -14,99 +14,99 @@ class QrUserLoginController {
 	
 	def springSecurityService
 
-    def index() {
-        redirect(action: "list", params: params)
-    }
-
-    def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        [qrUserLoginInstanceList: QrUserLogin.list(params), qrUserLoginInstanceTotal: QrUserLogin.count()]
-    }
-
-    def create() {
-        [qrUserLoginInstance: new QrUserLogin(params)]
-    }
-
-    def save() {
-        def qrUserLoginInstance = new QrUserLogin(params)
-        if (!qrUserLoginInstance.save(flush: true)) {
-            render(view: "create", model: [qrUserLoginInstance: qrUserLoginInstance])
-            return
-        }
-
-        flash.message = message(code: 'default.created.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), qrUserLoginInstance.id])
-        redirect(action: "show", id: qrUserLoginInstance.id)
-    }
-
-    def show(Long id) {
-        def qrUserLoginInstance = QrUserLogin.get(id)
-        if (!qrUserLoginInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), id])
-            redirect(action: "list")
-            return
-        }
-
-        [qrUserLoginInstance: qrUserLoginInstance]
-    }
-
-    def edit(Long id) {
-        def qrUserLoginInstance = QrUserLogin.get(id)
-        if (!qrUserLoginInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), id])
-            redirect(action: "list")
-            return
-        }
-
-        [qrUserLoginInstance: qrUserLoginInstance]
-    }
-
-    def update(Long id, Long version) {
-        def qrUserLoginInstance = QrUserLogin.get(id)
-        if (!qrUserLoginInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), id])
-            redirect(action: "list")
-            return
-        }
-
-        if (version != null) {
-            if (qrUserLoginInstance.version > version) {
-                qrUserLoginInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'qrUserLogin.label', default: 'QrUserLogin')] as Object[],
-                          "Another user has updated this QrUserLogin while you were editing")
-                render(view: "edit", model: [qrUserLoginInstance: qrUserLoginInstance])
-                return
-            }
-        }
-
-        qrUserLoginInstance.properties = params
-
-        if (!qrUserLoginInstance.save(flush: true)) {
-            render(view: "edit", model: [qrUserLoginInstance: qrUserLoginInstance])
-            return
-        }
-
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), qrUserLoginInstance.id])
-        redirect(action: "show", id: qrUserLoginInstance.id)
-    }
-
-    def delete(Long id) {
-        def qrUserLoginInstance = QrUserLogin.get(id)
-        if (!qrUserLoginInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), id])
-            redirect(action: "list")
-            return
-        }
-
-        try {
-            qrUserLoginInstance.delete(flush: true)
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), id])
-            redirect(action: "list")
-        }
-        catch (DataIntegrityViolationException e) {
-            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), id])
-            redirect(action: "show", id: id)
-        }
-    }
+//    def index() {
+//        redirect(action: "list", params: params)
+//    }
+//
+//    def list(Integer max) {
+//        params.max = Math.min(max ?: 10, 100)
+//        [qrUserLoginInstanceList: QrUserLogin.list(params), qrUserLoginInstanceTotal: QrUserLogin.count()]
+//    }
+//
+//    def create() {
+//        [qrUserLoginInstance: new QrUserLogin(params)]
+//    }
+//
+//    def save() {
+//        def qrUserLoginInstance = new QrUserLogin(params)
+//        if (!qrUserLoginInstance.save(flush: true)) {
+//            render(view: "create", model: [qrUserLoginInstance: qrUserLoginInstance])
+//            return
+//        }
+//
+//        flash.message = message(code: 'default.created.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), qrUserLoginInstance.id])
+//        redirect(action: "show", id: qrUserLoginInstance.id)
+//    }
+//
+//    def show(Long id) {
+//        def qrUserLoginInstance = QrUserLogin.get(id)
+//        if (!qrUserLoginInstance) {
+//            flash.message = message(code: 'default.not.found.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), id])
+//            redirect(action: "list")
+//            return
+//        }
+//
+//        [qrUserLoginInstance: qrUserLoginInstance]
+//    }
+//
+//    def edit(Long id) {
+//        def qrUserLoginInstance = QrUserLogin.get(id)
+//        if (!qrUserLoginInstance) {
+//            flash.message = message(code: 'default.not.found.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), id])
+//            redirect(action: "list")
+//            return
+//        }
+//
+//        [qrUserLoginInstance: qrUserLoginInstance]
+//    }
+//
+//    def update(Long id, Long version) {
+//        def qrUserLoginInstance = QrUserLogin.get(id)
+//        if (!qrUserLoginInstance) {
+//            flash.message = message(code: 'default.not.found.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), id])
+//            redirect(action: "list")
+//            return
+//        }
+//
+//        if (version != null) {
+//            if (qrUserLoginInstance.version > version) {
+//                qrUserLoginInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
+//                          [message(code: 'qrUserLogin.label', default: 'QrUserLogin')] as Object[],
+//                          "Another user has updated this QrUserLogin while you were editing")
+//                render(view: "edit", model: [qrUserLoginInstance: qrUserLoginInstance])
+//                return
+//            }
+//        }
+//
+//        qrUserLoginInstance.properties = params
+//
+//        if (!qrUserLoginInstance.save(flush: true)) {
+//            render(view: "edit", model: [qrUserLoginInstance: qrUserLoginInstance])
+//            return
+//        }
+//
+//        flash.message = message(code: 'default.updated.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), qrUserLoginInstance.id])
+//        redirect(action: "show", id: qrUserLoginInstance.id)
+//    }
+//
+//    def delete(Long id) {
+//        def qrUserLoginInstance = QrUserLogin.get(id)
+//        if (!qrUserLoginInstance) {
+//            flash.message = message(code: 'default.not.found.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), id])
+//            redirect(action: "list")
+//            return
+//        }
+//
+//        try {
+//            qrUserLoginInstance.delete(flush: true)
+//            flash.message = message(code: 'default.deleted.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), id])
+//            redirect(action: "list")
+//        }
+//        catch (DataIntegrityViolationException e) {
+//            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'qrUserLogin.label', default: 'QrUserLogin'), id])
+//            redirect(action: "show", id: id)
+//        }
+//    }
 
 	def dashboard() {
 		def currLogin = QrUserLogin.findByUserAndActivedAndDateConfirmedIsNotNull(springSecurityService.currentUser, true)
@@ -143,6 +143,7 @@ class QrUserLoginController {
 			def login = QrUserLogin.get(loginId)
 			if(login && login.validationCode == validateCode && login.user == springSecurityService.currentUser) {
 				login.dateConfirmed = new Date()
+				login.loggedIn = true
 				login.save(flush:true)
 				flash.message = "登录成功"
 			}

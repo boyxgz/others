@@ -38,6 +38,9 @@
 				<p>
 					<g:link url="${resource(dir:'reports/deliveryDetails')}" >提货报表</g:link>
 				</p>
+				<p>
+					<g:link url="${resource(dir:'reports/dailySaleSummaryWithProductOfStation')}" >提货汇总报表</g:link>
+				</p>
 				</sec:ifAnyGranted>
 				<sec:ifAnyGranted roles="ROLE_SALINGMNG">
 				<p>
@@ -57,6 +60,12 @@
 				</p>
 				<p>
 					<g:link url="${resource(dir:'reports/allDeliveryDetails')}" >提货总报表</g:link>
+				</p>
+				<p>
+					<g:link url="${resource(dir:'reports/dailySaleSummaryWithProduct')}" >商品分站总表</g:link>
+				</p>
+				<p>
+					<g:link url="${resource(dir:'reports/dailySaleSummary')}" >日销售汇总</g:link>
 				</p>
 				</sec:ifAnyGranted>
 				<sec:ifAnyGranted roles="ROLE_ADMIN">

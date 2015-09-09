@@ -80,28 +80,44 @@
 				</fieldset>
 			</g:form>
 		</div>
-		<div id="list-keyedMessage" class="content scaffold-list" role="main">
+		<div id="list-keyedMessage" class="content scaffold-list" role="main" style="overflow: auto;">
 			<table>
 				<thead>
 					<tr>
 					
-						<th>日期</th>
+						<th rowspan="2">日期</th>
 					
 						<g:each in="${users }" var="user">
-						<th>${user.username }</th>
+						<th colspan="2">${user.username }</th>
 						</g:each>
+						<th colspan="2">汇总</th>
+					</tr>
+					<tr>
+					
+						<g:each in="${users }" var="user">
+						<th>营业额</th>
+						<th>订单数</th>
+						</g:each>
+						<th>营业额</th>
+						<th>订单数</th>
 					
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${items}" status="i" var="item">
+				<g:set var="totalAmount" value="${0 }"/>
+				<g:set var="totalCount" value="${0 }"/>
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 						<td>${item[0] }</td>
 					
 						<g:each in="${users }" var="user" status="j">
-						<td>${item[j + 1] }</td>
+						<td>${item[2*j + 1] }</td>
+						<td>${item[2*j + 2] }</td>
+						<g:set var="totalAmount" value="${totalAmount + item[2*j + 1]  }"/>
+						<g:set var="totalCount" value="${totalCount + item[2*j + 2]  }"/>
 						</g:each>
-					
+						<td>${totalAmount }</td>
+						<td>${totalCount }</td>
 					</tr>
 				</g:each>
 				</tbody>

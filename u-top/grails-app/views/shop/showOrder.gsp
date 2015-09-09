@@ -36,7 +36,7 @@
 				</div>
 				<div class="cart_word" id="productWord_${item.plan.id }">
                        <p class="cart_name">
-                        	${item.plan.product.nameWithCount }
+                        	${item.plan.product.nameWithCount } X ${item.itemCount }
                        </p>
                        <p class="cart_name2">&nbsp;</p>
                        <p class="cart_price">

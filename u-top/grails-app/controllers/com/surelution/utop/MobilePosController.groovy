@@ -49,30 +49,34 @@ class MobilePosController {
 		if(qrDelivery) {
 			if(qrDelivery.userLogin.subscriber.id == subscriber.id) {
 				def dt = qrDelivery.ticket
-				def order = dt.saleOrder
-				order.status = SaleOrderStatus.DELIVERED
-				order.save(flush:true)
-		
-				dt.operator = qrDelivery.userLogin.user
-				dt.operatorSubscriber =  subscriber
-				dt.status = DeliveryStatus.DELIVERIED
-				dt.deliveredAt = new Date()
-				dt.save(flush:true)
-				
-				def tm = new TemplateMessage()
-				tm.url = "${Holders.config.grails.serverURL}/shop"
-				tm.templateId = "H_9LyMMGvJmUv7POiTDmuL8sgWnWZej41pbJP2o0Bes"
-				tm.toUser = order.subscriber.openId
-				tm.addEntry("first", "您好，您的订单已经成功提货")
-				tm.addEntry("keyword1", "${dt.sn}")
-				tm.addEntry("keyword2", "${dt.operator.username}")
-				tm.addEntry("keyword3", new Date().format("yyyy-MM-dd HH:mm"))
-				tm.addEntry("remark", "如有疑问，请联系我们")
-				tm.send()
-				
-				flash.message = "发货完成"
-				def items = SaleOrderItem.findAllByOrder(order)
-				return [saleOrder:order, orderItems:items]
+				if(dt.status == DeliveryStatus.READY) {
+					def order = dt.saleOrder
+					order.status = SaleOrderStatus.DELIVERED
+					order.save(flush:true)
+			
+					dt.operator = qrDelivery.userLogin.user
+					dt.operatorSubscriber =  subscriber
+					dt.status = DeliveryStatus.DELIVERIED
+					dt.deliveredAt = new Date()
+					dt.save(flush:true)
+					
+					def tm = new TemplateMessage()
+					tm.url = "${Holders.config.grails.serverURL}/shop"
+					tm.templateId = "H_9LyMMGvJmUv7POiTDmuL8sgWnWZej41pbJP2o0Bes"
+					tm.toUser = order.subscriber.openId
+					tm.addEntry("first", "您好，您的订单已经成功提货")
+					tm.addEntry("keyword1", "${dt.sn}")
+					tm.addEntry("keyword2", "${dt.operator.username}")
+					tm.addEntry("keyword3", new Date().format("yyyy-MM-dd HH:mm"))
+					tm.addEntry("remark", "如有疑问，请联系我们")
+					tm.send()
+					
+					flash.message = "发货完成"
+					def items = SaleOrderItem.findAllByOrder(order)
+					return [saleOrder:order, orderItems:items]
+				} else {
+					flash.message = "发货失败，原因可能是有其他操作人员在同时进行发货"
+				}
 			}
 			
 		}

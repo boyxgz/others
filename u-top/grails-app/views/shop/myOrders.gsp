@@ -18,7 +18,8 @@
 <body>
 <div id="divBody">
 <div class="wap_top">
-      <p class="top_back"><img src="${resource(dir:'images', file:'top_back.png') }" height="41" width="24"></p>
+      <p class="top_back" name="topback"><a href="javascript:;"><img src="${resource(dir:'images', file:'top_back.png') }" height="41" width="24"></a></p>
+	  <p class="top_tit">我的提货券</p>
 </div>
 <div class="ind_content">
 	<div class="my_account">
@@ -34,7 +35,12 @@
 			</g:each>
 		</g:if>
 		<g:else>
-		
+				<li>
+					<a href="${createLink(controller:'shop', action:'index')}" target="_self">
+						<div class="ico"><img src="${resource(dir:'images', file:'my_n_ico03.png') }">您没有任何可用提货券，请前往商城采购</div>
+						<div class="arrow"><img src="${resource(dir:'images', file:'arrow_n_right.png') }"></div>
+					</a>
+				</li>
 		</g:else>
 		</ul>
 	</div>

@@ -11,6 +11,7 @@ class ReportsController {
 		def from = params.date('dateFrom','yyyy-MM-dd HH:mm')
 		def to = params.date('dateTo','yyyy-MM-dd HH:mm')
 		def tickets = DeliveryTicket.createCriteria().list {
+			eq('status', DeliveryStatus.DELIVERIED)
 			if(from) {
 				ge('deliveredAt', from)
 			}
@@ -115,6 +116,26 @@ class ReportsController {
 		[items:items, users:users]
 	}
 	
+	def dailySaleSummaryWithProductOfStation() {
+		def from = params.date('dateFrom','yyyy-MM-dd HH:mm')
+		def to = params.date('dateTo','yyyy-MM-dd HH:mm')
+		def items
+		def user = springSecurityService.currentUser
+		if(from && to) {
+			def role = Role.findByAuthority("ROLE_STATION")
+			def sb = new StringBuilder()
+			sb.append("""
+				select soi.plan, sum(soi.itemCount)
+				from SaleOrderItem soi, DeliveryTicket dt where soi.order = dt.saleOrder
+				and dt.status = :status and dt.deliveredAt >= :from and dt.deliveredAt < :to 
+				and dt.operator = :operator
+				group by soi.plan
+			""")
+			items = SaleOrderItem.executeQuery(sb.toString(), [status:DeliveryStatus.DELIVERIED, from:from, to:to, operator:user])
+		}
+		[items:items, user:user]
+	}
+	
 	def dailySaleSummary() {
 		def from = params.date('dateFrom','yyyy-MM-dd HH:mm')
 		def to = params.date('dateTo','yyyy-MM-dd HH:mm')
@@ -131,6 +152,10 @@ class ReportsController {
 				sb.append(", sum(case dt.operator.id when ")
 				sb.append(it.id)
 				sb.append(" then (soi.itemCount * soi.plan.price) else 0 end) ")
+
+				sb.append(", sum(case dt.operator.id when ")
+				sb.append(it.id)
+				sb.append(" then 1 else 0 end) ")
 			}
 			sb.append("""
 				 from SaleOrderItem soi, DeliveryTicket dt where soi.order = dt.saleOrder
