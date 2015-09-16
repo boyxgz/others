@@ -24,7 +24,7 @@ class OrderFormController {
 		[vouchers:vouchers]
 	}
 	
-	def reActive() {
+	def reActive() { 
 		def voucherIds = params.list('voucherId')
 		voucherIds.each {
 			Voucher voucher = Voucher.get(it)
