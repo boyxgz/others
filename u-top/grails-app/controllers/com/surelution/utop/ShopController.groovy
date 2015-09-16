@@ -56,6 +56,7 @@ class ShopController {
 			eq('onSale', true)
 			le('activedStartAt', today)
 			gt('activedEndAt', today)
+			gt('index', 0)
 			cache(true)
 			createAlias('product', 'p')
 			order('index')

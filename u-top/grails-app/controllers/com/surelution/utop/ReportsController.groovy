@@ -10,16 +10,19 @@ class ReportsController {
     def deliveryDetails() {
 		def from = params.date('dateFrom','yyyy-MM-dd HH:mm')
 		def to = params.date('dateTo','yyyy-MM-dd HH:mm')
-		def tickets = DeliveryTicket.createCriteria().list {
-			eq('status', DeliveryStatus.DELIVERIED)
-			if(from) {
-				ge('deliveredAt', from)
+		def tickets
+		if(from || to) {
+			tickets = DeliveryTicket.createCriteria().list {
+				eq('status', DeliveryStatus.DELIVERIED)
+				if(from) {
+					ge('deliveredAt', from)
+				}
+				if(to) {
+					le('deliveredAt', to)
+				}
+				eq('operator', springSecurityService.currentUser)
+				order('deliveredAt')
 			}
-			if(to) {
-				le('deliveredAt', to)
-			}
-			eq('operator', springSecurityService.currentUser)
-			order('deliveredAt')
 		}
 		[tickets:tickets]
 	}
