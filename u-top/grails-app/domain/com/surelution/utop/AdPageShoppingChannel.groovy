@@ -6,7 +6,7 @@ class AdPageShoppingChannel extends SubscribingChannel {
     }
 	
 	Station station
-	
+
 	public String toString() {
 		"${name}(产品广告页扫码)"
 	} 
