@@ -441,7 +441,7 @@ class ShopController {
 				voucher.expiredAt = SDF.parse(expiredAt)
 				voucher.save(flush:true)
 			}
-		} 
+		}
 
 		def now = new Date()
 		def channelId = params.cid
