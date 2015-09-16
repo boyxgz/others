@@ -14,7 +14,7 @@
 		<script type="text/javascript" src="${resource(file:'js/jquery-1.9.1.min.js') }"></script>
 		<link href="${resource(dir:'css/jquery.datetimepicker.css')}" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="${resource(file:'js/jquery.datetimepicker.js') }"></script>
-		<script type="text/javascript">
+		<script type="text/javascript"> 
 			$( document ).ready(function() {
 				$('#dateFrom').datetimepicker({
 					dayOfWeekStart : 1,
