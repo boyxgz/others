@@ -3,6 +3,8 @@ package com.surelution.utop
 import grails.converters.JSON
 import grails.util.Holders
 
+import java.text.SimpleDateFormat
+
 import org.apache.commons.lang3.RandomUtils
 
 import com.surelution.utop.DeliveryTicket.DeliveryStatus
@@ -413,6 +415,50 @@ class ShopController {
 			&& delivery.ticket.status == DeliveryStatus.READY) {
 			def content = QrCode.getTempQr(delivery.qrKey, 30 * 60 * 1000)
 			response.outputStream << content
+		}
+	}
+
+	def directShop(Long id) {
+		def withGift = AppVar.findByKey("subscribing-with-gift")?.value
+		if("1" == withGift) {
+			def vt = VoucherType.findByKey("subscribing_voucher")
+			def voucher = Voucher.findBySubscriberAndType(subscriber, vt)
+			if(!voucher) {
+				String giftAmount = AppVar.findByKey("subscribing-gift-amount")?.value
+				String expiredAt = AppVar.findByKey("subscribing-gift-expired-at")?.value
+				if(!giftAmount) {
+					giftAmount = "4"
+				}
+				if(!expiredAt) {
+					expiredAt = "20151001000000"
+				}
+				voucher = new Voucher()
+				voucher.subscriber = subscriber
+				voucher.type = vt
+				voucher.amount = giftAmount as BigDecimal
+				voucher.enabled = true
+				SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMddHHmmss")
+				voucher.expiredAt = SDF.parse(expiredAt)
+				voucher.save(flush:true)
+			}
+		}
+
+		def now = new Date()
+		def channelId = params.cid
+		AdPageShoppingChannel channel = AdPageShoppingChannel.get(channelId)
+		ProductPricePlan plan = ProductPricePlan.get(id)
+		if(plan && plan.validBy(now)) {
+			saleOrderService.addProduct(subscriber, plan, 1)
+			if(channel) {
+				def scanning = new AdPageScanning()
+				scanning.subscriber = subscriber
+				scanning.plan = plan
+				scanning.channel = channel
+				scanning.save(flush:true)
+			}
+			redirect(action:'cart')
+		} else {
+			redirect(action:'index')
 		}
 	}
 }
