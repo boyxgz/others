@@ -6,9 +6,9 @@
 		   "url":"http://youmi.sh-hansi.com/shop"
       },
       {
-		   "type":"click",
+		   "type":"view",
 		   "name":"提货券",
-		   "key":"my-delivery"
+		   "url":"http://youmi.sh-hansi.com/shop/myOrders"
       },
       {
 		   "type":"view",
