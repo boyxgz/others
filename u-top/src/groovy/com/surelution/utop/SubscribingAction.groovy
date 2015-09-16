@@ -29,6 +29,8 @@ class SubscribingAction extends UtopBaseAction {
 	 */
 	@Override
 	public void execute() {
+		subscriber.subscribed = true
+		subscriber.save(flush:true)
 		if(getParam("Event") == "subscribe") {
 			def eventKey = getParam("EventKey")
 			if(eventKey && eventKey.startsWith("qrscene_")) {

@@ -8,6 +8,8 @@ class Subscriber {
 	static constraints = {
 		openId unique:true
 	}
+	
+	Boolean subscribed = false
 
 	String openId
 	Date dateCreated
