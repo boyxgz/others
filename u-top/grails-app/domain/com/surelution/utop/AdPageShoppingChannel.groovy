@@ -9,5 +9,5 @@ class AdPageShoppingChannel extends SubscribingChannel {
 	
 	public String toString() {
 		"${name}(产品广告页扫码)"
-	}
+	} 
 }
