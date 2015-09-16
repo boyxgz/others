@@ -13,11 +13,29 @@
 	<link href="${resource(dir:'css', file:'list.css') }" rel="stylesheet" type="text/css" />
 	<link href="${resource(dir:'css', file:'scrollbar.css') }" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="${resource(dir:'js', file:'jquery-1.11.0.min.js') }"></script>
+	<wx:registerJsapi apiList="'scanQRCode'"/>
+	<script type="text/javascript">
+		function showScan() {
+			wx.scanQRCode({
+			    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+			    scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
+			    success: function (res) {
+			    	var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+			    	if(result.indexOf('${Holders.config.grails.serverURL}${createLink(controller:'shop', action:'directShop')}') == 0) {
+						document.location.href = result;
+				    } else {
+					    alert("请注意只扫码商品二维码，其他二维码无法识别！");
+					}
+				}
+			});
+		}
+	</script>
 </head>
 <body>
 <div id="divBody">
 	<div class="wap_top">
 		<p class="top_back" name="topback"><a href="javascript:;"><img src="${resource(dir:'images', file:'top_back.png') }" height="41" width="24"></a></p>
+	  	<p class="top_word"><a href="javascript:showScan()">扫码</a></p>
 	  	<p class="top_tit">购物车</p>
 	</div>
 	<div class="ind_content" id="ind_content">
