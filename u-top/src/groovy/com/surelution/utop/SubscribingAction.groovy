@@ -62,13 +62,12 @@ class SubscribingAction extends UtopBaseAction {
 				voucher.enabled = true
 				voucher.expiredAt = SDF.parse(expiredAt)
 				voucher.save(flush:true)
-				println voucher.errors
 			}
 		}
 		def welcomeMsg = KeyedMessage.findByKey("welcome-message")?.message
 		put(new Attribute(Attribute.KEY_Content, welcomeMsg))
 	}
-	
+
 	private void saveChannel(String qrId) {
 		if(!SubscriberChannel.countBySubscriber(subscriber)) {
 			def channel = QrChannel.findByQrNo(qrId)
