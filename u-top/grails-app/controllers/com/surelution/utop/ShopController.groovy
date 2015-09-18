@@ -104,8 +104,8 @@ class ShopController {
 		if(inCart != "1") {
 			def vs = Voucher.findAllBySubscriber(subscriber)?.collect(){sv->
 				if(sv.enabled &&
-				sv.status == VoucherStatus.NEW &&
-				sv.expiredAt >= new Date()) {
+					sv.status == VoucherStatus.NEW &&
+					sv.expiredAt >= new Date()) {
 					return sv
 				}
 			}
@@ -115,13 +115,11 @@ class ShopController {
 		}
 		if(voucherId) {
 			Voucher sv = Voucher.get(voucherId)
-			if(sv) {
-				if(sv.enabled && 
-					sv.status == VoucherStatus.NEW && 
-					sv.expiredAt >= new Date() &&
-					sv.subscriber.id == subscriber.id) {
-					selectedVoucher = sv
-				}
+			if(sv && sv.enabled && 
+				sv.status == VoucherStatus.NEW && 
+				sv.expiredAt >= new Date() &&
+				sv.subscriber.id == subscriber.id) {
+				selectedVoucher = sv
 			}
 		}
 		def vouchers = Voucher.findAllBySubscriberAndEnabledAndStatusAndExpiredAtGreaterThan(subscriber, true, VoucherStatus.NEW, new Date())
