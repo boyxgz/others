@@ -428,7 +428,7 @@ class ShopController {
 				if(!giftAmount) {
 					giftAmount = "4"
 				}
-				if(!expiredAt) { 
+				if(!expiredAt) {
 					expiredAt = "20151001000000"
 				}
 				voucher = new Voucher()
