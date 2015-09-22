@@ -41,6 +41,9 @@
 				<p>
 					<g:link url="${resource(dir:'reports/dailySaleSummaryWithProductOfStation')}" >提货汇总报表</g:link>
 				</p>
+				<p>
+					<g:link url="${resource(dir:'orderForm/limitedList')}" >误锁定代金券</g:link>
+				</p>
 				</sec:ifAnyGranted>
 				<sec:ifAnyGranted roles="ROLE_SALINGMNG">
 				<p>
