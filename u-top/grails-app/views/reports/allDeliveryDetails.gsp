@@ -149,7 +149,7 @@
 									a = aMax
 								}
 							 %>
-							<td>${a }</td>
+							<td>${a * item.itemCount }</td>
 							</tr>
 						</g:each>
 						
