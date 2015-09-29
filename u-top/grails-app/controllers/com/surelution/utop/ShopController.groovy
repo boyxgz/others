@@ -133,7 +133,7 @@ class ShopController {
 			shouldPay = orderItems?.sum{(it.plan?.price) * it.itemCount }
 		}
 		
-		if(selectedVoucher) {
+		if(shouldPay && selectedVoucher) {
 			shouldPay = shouldPay - selectedVoucher.amount
 			if(shouldPay < 0) {
 				shouldPay = 0
