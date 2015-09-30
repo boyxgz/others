@@ -1,5 +1,7 @@
 package com.surelution.utop
 
+import groovy.time.TimeCategory;
+
 import com.surelution.utop.DeliveryTicket.DeliveryStatus
 import com.surelution.utop.SaleOrder.SaleOrderStatus
 
@@ -168,5 +170,21 @@ class ReportsController {
 			items = SaleOrderItem.executeQuery(sb.toString(), [status:DeliveryStatus.DELIVERIED, from:from, to:to])
 		}
 		[items:items, users:users]
+	}
+	
+	def adPageScanningSummary() {
+		def from = params.date('dateFrom','yyyy-MM-dd HH:mm')
+		def to = params.date('dateTo','yyyy-MM-dd HH:mm')
+		if(!from) {
+			use(TimeCategory) {
+				from = new Date() - 7.days
+			}
+		}
+		if(!to) {
+			to = new Date()
+		}
+		def summary = AdPageScanning.executeQuery("select distinct count(a.subscriber.id), a.channel, cast(a.dateCreated as date) as d from AdPageScanning a where a.dateCreated between :from and :to group by a.channel, cast(a.dateCreated as date) order by a.channel,d",
+			[from:from, to:to])
+		[summary:summary]
 	}
 }
