@@ -137,7 +137,7 @@
 								if(!settlementPrice) {
 									settlementPrice = 0
 								}
-								def a = (settlementPrice - item.plan.costPrice) * 0.3
+								def a = (settlementPrice - item.plan.costPrice) * 0.3 / 1.17
 								def aMin = settlementPrice * 0.007
 								def aMax = settlementPrice * 0.03
 								if(!a) {
@@ -149,7 +149,7 @@
 									a = aMax
 								}
 							 %>
-							<td>${a * item.itemCount }</td>
+							<td><g:formatNumber number="${a * item.itemCount }" format="##,###.##"/></td>
 							</tr>
 						</g:each>
 						
