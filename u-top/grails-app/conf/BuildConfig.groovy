@@ -62,5 +62,6 @@ grails.project.dependency.resolution = {
         compile ':cache:1.0.1'
 		compile ':cookie:0.51'
 		compile ':spring-security-core:2.0-RC2'
+//		runtime ":class-domain-uml:0.1.5"
     }
 }
