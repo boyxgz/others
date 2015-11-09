@@ -3,7 +3,6 @@ package com.surelution.utop
 /**
  * 
  * @author <a href="mailto:guangzong.syu@gmail.com">guagnzong</a>
- * 测试一下branch
  */
 class Label {
 
