@@ -4,4 +4,6 @@ class Label {
 
     static constraints = {
     }
+	
+	String name
 }
