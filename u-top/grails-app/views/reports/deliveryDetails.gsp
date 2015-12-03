@@ -106,18 +106,18 @@
 						<td rowspan="${rows }"><g:formatDate date="${ticket.deliveredAt}" format="yyyy-MM-dd HH:mm:ss"/></td>
 					
 						<td rowspan="${rows }">${subscriber.nickname}</td>
-						<g:each in="${orderItems }" var="item">
+						<g:each in="${orderItems }" var="item" status="j">
 							<td>${item.plan.product.code }</td>
 							<td>${item.plan.product.name }(${item.plan.product.packingCount })</td>
 							<td>${item.itemCount }</td>
 							<td>${item.settlementPrice }</td>
-							<g:if test="${i != 0 }">
-								</tr><tr>
+							</tr>
+							<g:if test="${j != orderItems - 1 }">
+								<tr>
 							</g:if>
 						</g:each>
 						
 					
-					</tr>
 				</g:each>
 				</tbody>
 			</table>
