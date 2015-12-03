@@ -113,7 +113,7 @@
 							<td>${item.settlementPrice }</td>
 							</tr>
 							<g:if test="${j != orderItems - 1 }">
-								<tr>
+								<tr> 
 							</g:if>
 						</g:each>
 						
