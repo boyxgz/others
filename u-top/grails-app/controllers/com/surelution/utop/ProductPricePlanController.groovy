@@ -158,7 +158,6 @@ class ProductPricePlanController {
 			if(key.startsWith("plan-id-")) {
 				def planId = key.substring("plan-id-".length())
 				def position = it.value
-				println "${planId}@${position}"
 				ProductPricePlan plan = ProductPricePlan.get(planId)
 				if(plan) {
 					plan.index = position as Integer
@@ -168,5 +167,41 @@ class ProductPricePlanController {
 		}
 		
 		redirect(action:'productPosition')
+	}
+	
+	def availablePlan() {
+		def operation = params.operation
+		if(operation == "add") {
+			def planId = params.planId
+			def labelId = params.labelId
+			if(planId && labelId) {
+				def plan = ProductPricePlan.get(planId)
+				def label = ProductLabel.get(labelId)
+				if(plan && label) {
+					def planLabel = new PricePlanLabel()
+					planLabel.plan = plan
+					planLabel.label = label
+					planLabel.save()
+				}
+			}
+			
+		} else if(operation == "remove") {
+			def planLabelId = params.planLabelId
+			if(planLabelId) {
+				def planLabel = PricePlanLabel.get(planLabelId)
+				if(planLabel) {
+					planLabel.delete()
+				}
+			}
+		}
+		
+		def from = params.date('dateFrom','yyyy-MM-dd HH:mm')
+		if(!from)
+			from = new Date()
+		def plans = ProductPricePlan.createCriteria().list() {
+			le('activedStartAt', from)
+			ge('activedEndAt', from)
+		}
+		[plans:plans]
 	}
 }

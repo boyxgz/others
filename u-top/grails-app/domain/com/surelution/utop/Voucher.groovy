@@ -1,6 +1,6 @@
 package com.surelution.utop
 
-import com.surelution.id.IDUtil;
+import com.surelution.id.IDUtil
 
 class Voucher {
 
@@ -41,5 +41,9 @@ class Voucher {
 		NEW, // 新建
 		QUERIED_TO_USE, //声明要使用，但是尚未确定使用
 		USED //已使用
+
+		public String toString() {
+			KeyedMessage.populate("VoucherStatus-${name()}")
+		}
 	}
 }

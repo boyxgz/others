@@ -19,5 +19,7 @@ class ProductLabel {
 	
 	String name
 	String key
+	Boolean available
+	Boolean listInMenu
 	Date dateCreated
 }
