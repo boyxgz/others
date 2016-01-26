@@ -41,8 +41,8 @@ class PosController {
 				validation.save(flush:true)
 
 				TemplateMessage tm = new TemplateMessage()
-				tm.templateId = "jVuo8b1FshhLDRl7dsd9Dvo3WI0wBo2yF3pg8iiUpYY"
-				tm.url = "${Holders.config.grails.serverURL}/shop"
+				tm.templateId = Holders.config.templateMessage.delivery_validation //温州
+				tm.url = "${Holders.config.grails.serverURL}/shop2"
 				tm.toUser = order.subscriber.openId
 				tm.addEntry("first", "尊敬的顾客")
 				tm.addEntry("number", validation.validationCode)
@@ -83,8 +83,8 @@ class PosController {
 			dt.save(flush:true)
 			
 			def tm = new TemplateMessage()
-			tm.url = "${Holders.config.grails.serverURL}/shop"
-			tm.templateId = "H_9LyMMGvJmUv7POiTDmuL8sgWnWZej41pbJP2o0Bes"
+			tm.url = "${Holders.config.grails.serverURL}/shop2"
+			tm.templateId = Holders.config.templateMessage.delivery_finished
 			tm.toUser = order.subscriber.openId
 			tm.addEntry("first", "您好，您的订单已经成功提货")
 			tm.addEntry("keyword1", "${dt.sn}")

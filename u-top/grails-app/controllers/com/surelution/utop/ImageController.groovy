@@ -1,12 +1,15 @@
 package com.surelution.utop
 
+import grails.util.Holders;
+
 import com.surelution.whistle.push.Menu;
 
 class ImageController {
 
     def 'name'(Long id) {
 		def vf = AliOssFile.get(id)
-		response.outputStream << AliOssFileHelper.downloadFile("res_images", vf.id.toString())
+		
+		response.outputStream << AliOssFileHelper.downloadFile(Holders.config.alioss.bucket.name, vf.id.toString())
 	}
 	
 	def productDefaultPicture(Long id) {
@@ -16,7 +19,7 @@ class ImageController {
 		}
 		def fileStream
 		if(pp && pp.file) {
-			fileStream = AliOssFileHelper.downloadFile("res_images", pp.file.id.toString())
+			fileStream = AliOssFileHelper.downloadFile(Holders.config.alioss.bucket.name, pp.file.id.toString())
 		} else {
 			fileStream = this.class.getResourceAsStream("no-pic.jpg")
 		}

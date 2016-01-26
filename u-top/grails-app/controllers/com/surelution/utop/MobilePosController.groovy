@@ -18,7 +18,7 @@ class MobilePosController {
 	def beforeInterceptor = {
 		def userSn = request.getCookie('mobile-pos-sn')
 		subscriber = MobilePosCookie.findBySubscriberSn(userSn)?.subscriber
-	
+
 		if(!subscriber) {
 			def requestUrl = request.forwardURI
 			def baseUrl = Holders.config.grails.serverURL
@@ -61,8 +61,8 @@ class MobilePosController {
 					dt.save(flush:true)
 					
 					def tm = new TemplateMessage()
-					tm.url = "${Holders.config.grails.serverURL}/shop"
-					tm.templateId = "H_9LyMMGvJmUv7POiTDmuL8sgWnWZej41pbJP2o0Bes"
+					tm.url = "${Holders.config.grails.serverURL}/shop2"
+					tm.templateId = Holders.config.templateMessage.delivery_finished
 					tm.toUser = order.subscriber.openId
 					tm.addEntry("first", "您好，您的订单已经成功提货")
 					tm.addEntry("keyword1", "${dt.sn}")

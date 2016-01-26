@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0"  charset="utf-8"/>  
-<title>优米商城</title>
+<title>优米商城<g:if test="${extroInfo }">——${extroInfo }</g:if></title>
 <link href="${resource(file:'css/style2.css')}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="${resource(file:'css/reset.css')}">
 <link rel="stylesheet" type="text/css" href="${resource(file:'css/reboot.css')}">
@@ -70,7 +70,7 @@ $( document ).ready(function() {
 <g:layoutBody />
 
 
-<div class="bottom_menu"><a href="${createLink(controller:'shop2', action:'index') }"><img src="${resource(file:'images/index.png')}">首页</a><a href="#" id="open-sb"><img src="${resource(file:'images/pro.png')}">商品分类</a><a href="${createLink(controller:'shop2', action:'cart') }"><img src="${resource(file:'images/car1.png')}">购物车</a><a href="${createLink(controller:'shop2', action:'member') }"><img src="${resource(file:'images/vip.png')}">个人中心</a><a href="about.html"><!-- <img src="${resource(file:'images/about.png')}">公司介绍</a> --></li></div>
+<div class="bottom_menu"><a href="${createLink(controller:'shop2', action:'index') }"><img src="${resource(file:'images/index.png')}">首页</a><a href="#" id="open-sb"><img src="${resource(file:'images/pro.png')}">商品分类</a><a href="${createLink(controller:'shop2', action:'cart') }"><img src="${resource(file:'images/car1.png')}">购物车</a><a href="${createLink(controller:'shop2', action:'member') }"><img src="${resource(file:'images/vip.png')}">个人中心</a><!--<a href="about.html"> <img src="${resource(file:'images/about.png')}">公司介绍</a> --></li></div>
 <br><br><br><br><br>
 <script type="text/javascript">
 var TabbedPanels1 = new Spry.Widget.TabbedPanels("TabbedPanels1");

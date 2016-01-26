@@ -40,7 +40,7 @@
 %>
 <div class="car_box" style="width:90%; margin:0 auto;">
   <ul style="border-top:none;">
-    <h2 style="text-align:left;">提货号：<g:if test="${ticket }">${ticket.sn }</g:if><g:else>尚无</g:else><span>${order.status }</span></h2>
+    <h2 style="text-align:left;" onclick="showHiddenQr(box,'${createLink(controller:'shop2', action:'deliveryQr', id:ticket.id)}')">提货号：<g:if test="${ticket }">${ticket.sn }</g:if><g:else>尚无</g:else><span>${order.status }</span></h2>
     <g:set var="items" value="${SaleOrderItem.findAllByOrderAndDeleted(order, false) }"/>
     <g:each in="${items }" var="item">
     	<li>${item.plan.product.name }&nbsp;${item.plan.product.spec }&nbsp;${item.plan.product.packingCount } X ${item.itemCount }<span>￥${item.itemCount * item.plan.price }</span></li>
@@ -49,6 +49,7 @@
   </ul>
 </div>
 </g:each>
+<div id="box" style="display:none;"><a onclick="showHiddenQr(box,'')"><img src="" width="220" height="220" id="imgQr"></a></div>
 
 <!--订单结束-->        
         </div>

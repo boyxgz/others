@@ -117,10 +117,10 @@
 				</thead>
 				<tbody>
 				<g:each in="${tickets}" status="i" var="ticket">
+					<g:set var="subscriber" value="${UserInfo.loadUserInfo(ticket.saleOrder.subscriber.openId) }"/>
+					<g:set var="orderItems" value="${SaleOrderItem.findAllByOrder(ticket.saleOrder) }"/>
+					<g:set var="rows" value="${orderItems?.size() }"/>
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-						<g:set var="subscriber" value="${UserInfo.loadUserInfo(ticket.saleOrder.subscriber.openId) }"/>
-						<g:set var="orderItems" value="${SaleOrderItem.findAllByOrder(ticket.saleOrder) }"/>
-						<g:set var="rows" value="${orderItems?.size() }"/>
 						<td rowspan="${rows }"><g:formatDate date="${ticket.deliveredAt}" format="yyyy-MM-dd HH:mm:ss"/></td>
 						<td rowspan="${rows }">${ticket.operator?.username}</td>
 						<td rowspan="${rows }">${ticket.saleOrder.realIncome / 100}</td>
@@ -152,7 +152,6 @@
 							<td><g:formatNumber number="${a * item.itemCount }" format="##,###.##"/></td>
 							</tr>
 						</g:each>
-						
 					
 				</g:each>
 				</tbody>

@@ -24,33 +24,51 @@ import com.surelution.whistle.push.qrcode.QrCode
 class Shop2Controller {
 
 	def saleOrderService
-	def subscriber = Subscriber.get(9)
+	def subscriber
 
 	/**
 	 * 自动登录
 	 */
-//	def beforeInterceptor = {
-//		def userSn = request.getCookie('user-sn')
-//		subscriber = SubscriberCookie.findBySubscriberSn(userSn)?.subscriber
-//		
-//		if(!subscriber) {
-//			def requestUrl = request.forwardURI
-//			def baseUrl = Holders.config.grails.serverURL
-//			def url = Auth2Util.buildRedirectUrl("${baseUrl}/subscriberPortal/autoLogin", requestUrl, AuthScope.BASE)
-//			response.deleteCookie('user-sn')
-//			redirect(url:url)
-//			return false
-//		}
-//		return true
-//	}
+	def beforeInterceptor = {
+		def userSn = request.getCookie('user-sn')
+		subscriber = SubscriberCookie.findBySubscriberSn(userSn)?.subscriber
+		
+		if(!subscriber) {
+			def requestUrl = request.forwardURI
+			def baseUrl = Holders.config.grails.serverURL
+			def url = Auth2Util.buildRedirectUrl("${baseUrl}/subscriberPortal/autoLogin", requestUrl, AuthScope.BASE)
+			response.deleteCookie('user-sn')
+			redirect(url:url)
+			return false
+		}
+		return true
+	}
 
     def index(Long id) {
 		def recommend
 		def products
+		def extroInfo
 		if(id) {
 			def label = ProductLabel.get(id)
 			if(label) {
-				products = PricePlanLabel.findAllByLabel(label).collect(){it.plan}
+				def today = new Date()
+				extroInfo = label?.name
+				
+				products = PricePlanLabel.createCriteria().list() {
+					createAlias('label', 'l')
+					createAlias('plan', 'p')
+					createAlias('p.product', 'prod')
+					eq('label', label)
+					eq('p.confirmed', true)
+					eq('p.onSale', true)
+					le('p.activedStartAt', today)
+					gt('p.activedEndAt', today)
+					gt('p.index', 0)
+					cache(true)
+					order('p.index')
+				}.collect(){it.plan}
+
+//				products = PricePlanLabel.findAllByLabel(label).collect(){it.plan}
 			}
 		} else {
 			recommend = PricePlanLabel.findAllByLabelKey("recommend")
@@ -58,7 +76,7 @@ class Shop2Controller {
 		}
 		def newOrder = saleOrderService.findNewOrder(subscriber)
 		SaleOrderItem.checkItems(newOrder)
-		[recommend:recommend, products:products, newOrder:newOrder]
+		[recommend:recommend, products:products, newOrder:newOrder, extroInfo:extroInfo]
 	}
 
 	/**
@@ -365,7 +383,6 @@ class Shop2Controller {
 	}
 
 	def myOrders() {
-		println subscriber.openId
 		def tickets = DeliveryTicket.findAllBySubscriberAndStatus(subscriber, DeliveryStatus.READY)
 		if(tickets?.size() == 1) {
 			redirect(action:'showOrder', id:tickets[0].id)
@@ -403,7 +420,26 @@ class Shop2Controller {
 	}
 	
 	def deliveryQr(Long id) {
-		def delivery = QrDelivery.get(id)
+		def ticket = DeliveryTicket.get(id)
+		def saleOrder
+		def delivery
+		if(ticket) {
+			if(ticket.subscriber.id != subscriber.id) {
+				ticket = null
+			} else {
+				saleOrder = ticket.saleOrder
+				if(ticket.status == DeliveryStatus.READY) {
+					def hist = QrDelivery.findAllByTicketAndActived(ticket, Boolean.TRUE)
+					hist.each {
+						it.actived = false
+						it.save(flush:true)
+					}
+					delivery = new QrDelivery()
+					delivery.ticket = ticket
+					delivery.save(flush:true)
+				}
+			}
+		}
 		if(delivery 
 			&& delivery.ticket.subscriber.id == subscriber.id
 			&& delivery.ticket.status == DeliveryStatus.READY) {
@@ -483,9 +519,10 @@ class Shop2Controller {
 			redirect(action:'index')
 			return
 		}
-
+		def extroInfo
+		
+		def today = new Date()
 		def products = PricePlanLabel.createCriteria().list() {
-			def today = new Date()
 			createAlias('label', 'l')
 			createAlias('plan', 'p')
 			createAlias('p.product', 'prod')
@@ -498,9 +535,11 @@ class Shop2Controller {
 			cache(true)
 			order('p.index')
 		}.collect(){it.plan}
+		def set = new HashSet()
+		set.addAll(products)
 		
 		def newOrder = saleOrderService.findNewOrder(subscriber)
 		SaleOrderItem.checkItems(newOrder)
-		render(view:'index', model:[products:products, newOrder:newOrder])
+		render(view:'index', model:[products:set, newOrder:newOrder, extroInfo:id])
 	}
 }

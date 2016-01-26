@@ -116,7 +116,6 @@
 								<tr> 
 							</g:if>
 						</g:each>
-						
 					
 				</g:each>
 				</tbody>

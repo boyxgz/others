@@ -23,7 +23,7 @@
 			    scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
 			    success: function (res) {
 			    	var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-			    	if(result.indexOf('${Holders.config.grails.serverURL}${createLink(controller:'shop', action:'directShop')}') == 0) {
+			    	if(result.indexOf('${Holders.config.grails.serverURL}${createLink(controller:'shop2', action:'directShop')}') == 0) {
 						document.location.href = result;
 				    } else {
 					    alert("请注意只扫码商品二维码，其他二维码无法识别！");

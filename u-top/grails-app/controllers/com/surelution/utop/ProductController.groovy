@@ -1,12 +1,9 @@
 package com.surelution.utop
 
+import grails.util.Holders
+
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.web.multipart.commons.CommonsMultipartFile
-
-import com.aliyun.oss.ClientException
-import com.aliyun.oss.OSSClient
-import com.aliyun.oss.OSSException
-import com.aliyun.oss.model.ObjectMetadata
 
 class ProductController {
 
@@ -119,7 +116,7 @@ class ProductController {
 			pp.enabled = true
 			pp.index = params.int('index')
 			pp.save(flush:true)
-			AliOssFileHelper.uploadFile(file.inputStream, "res_images", aliFile.id.toString(), file.size, "image/jpeg")
+			AliOssFileHelper.uploadFile(file.inputStream, Holders.config.alioss.bucket.name, aliFile.id.toString(), file.size, "image/jpeg")
 		}
 		redirect(action:'show', id:id)
 	}
