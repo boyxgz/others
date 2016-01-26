@@ -37,10 +37,10 @@ environments {
     }
     production {
         dataSource {
-		    username = "youmi"
-		    password = "root4youmi"
+		    username = "youmi_huzhou"
+		    password = "root4huzhou"
             dbCreate = "update" // one of 'create', 'create-drop','update'
-            url = "jdbc:mysql://rds54132k3n8255wels3.mysql.rds.aliyuncs.com/u_top?useUnicode=true&characterEncoding=utf8"
+            url = "jdbc:mysql://rds54132k3n8255wels3.mysql.rds.aliyuncs.com/u_top_huzhou?useUnicode=true&characterEncoding=utf8"
 			loggingSql = true
 
 			validationQuery="SELECT 1"

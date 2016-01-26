@@ -75,13 +75,10 @@ input[type="submit"], input[type="reset"], input[type="button"], button { -webki
 .s_pro_title{ font-size:1.2em; color:#e67817; padding:1em 0;font-family:"微软雅黑";font-weight:bold; }
 .s_pro dl{ float:left; width:45%; margin-right:5%; text-align:center; padding-bottom:40px; padding-top:10px; line-height:2em; position:relative;}
 .s_pro dl .dw{ position:absolute; bottom:3em; right:1em;}
-.s_pro dl dt{ width:100%;}
+.s_pro dl dt{ width:100%; margin:0 auto;}
 .s_pro dl dd{ text-align:left;}
-.s_pro dl dt img{ width:100%}
-.s_pro dl dd.d2{font-size:1.2em; height:36px; line-height:36px;text-overflow:ellipsis; 
-white-space:nowrap; 
-*white-space:nowrap; 
-overflow:hidden; }
+.s_pro dl dt img{ width:100%; height:160px;}
+.s_pro dl dd.d2{font-size:0.875em; height:48px; padding-bottom:2px; line-height:24px; overflow:hidden;}
 .s_pro dl dd.d1{ font-size:0.875em; color:#ff0000;}
 .s_pro dl dd.d3{ font-size:0.875em; color:#666;}
 .s_pro dl dd.d1 span{  text-decoration:line-through; color:#999;}
@@ -92,14 +89,12 @@ overflow:hidden; }
 .s_sp{ width:100%; background:#f4f4f4; overflow:hidden;font-family:"微软雅黑"; font-weight:bold;}
 .s_sp_title{ font-size:1.2em; color:#e67817; padding:1em 0;font-weight:bold; padding-left:5%; height:35px; overflow:hidden;font-family:"微软雅黑"; }
 .s_sp_wid{ width:102%;}
-.s_sp dl{ width:48%; background:#fff; float:left; margin-right:2%; margin-bottom:2%; padding-bottom:10px;border-radius:1.2em; overflow:hidden; position:relative;}
+.s_sp dl{ width:44%; background:#fff; float:left; padding:0 2%; margin-right:2%; margin-bottom:2%; padding-bottom:10px;border-radius:1.2em; overflow:hidden; position:relative;}
+.s_sp dl dt img{ width:100%; height:160px;}
 .s_sp dl .dw{ position:absolute; bottom:1.5em; right:1em;}
 .s_sp dl dt,dd{ width:100%; text-align:left;}
 /*.s_sp dl dt img{ width:100%}*/
-.s_sp dl dd.d2{font-size:1.2em; height:36px; line-height:36px;text-overflow:ellipsis; 
-white-space:nowrap; 
-*white-space:nowrap; 
-overflow:hidden; }
+.s_sp dl dd.d2{font-size:0.875em; height:48px; line-height:24px; padding-bottom:2px; overflow:hidden;color:#354a60;}
 .s_sp dl dd.d1{ font-size:0.875em; color:#ff0000;}
 .s_sp dl dd.d3{ font-size:0.875em; color:#666;}
 .s_sp dl dd.d1 span{  text-decoration:line-through; color:#999;}
@@ -111,7 +106,7 @@ overflow:hidden; }
 .pro dl{ width:100%; padding-bottom:10px; line-height:2em;}
 .pro dl dt{ width:100%; text-align:center;}
 .pro dl dd{ width:95%; text-align:left; padding-left:5%; }
-.pro dl dt img{ width:100%;}
+.pro dl dt img{ width:80%; padding:10% 0 6% 0;}
 .pro dl dd.d2{font-size:1.2em; height:36px; color:#333; line-height:36px;text-overflow:ellipsis; 
 white-space:nowrap; 
 *white-space:nowrap; 
@@ -174,13 +169,12 @@ overflow:hidden;}
 
 .bottom_menu{ width:100%; color:#999; text-align:center;  background:#eee; position:fixed; bottom:0; border-top:#dedede solid 1px ; font-size:0.6em;}
 .bottom_menu a{ color:#666; border-top:#fff solid 1px ; display:block; float:left; width:25%;margin-bottom:0.5em;}
+.bottom_menu a:nth-child(1) img{ padding-bottom:5px;}
 .bottom_menu img{ width:20%; display:block; margin:0.6em auto;}
 
 
-
-
-
-
+#box{ width:100%; position:fixed; top:0; left:0; text-align:center; height:100%; overflow:hidden; background:rgba(255,255,255,0.7); padding:0; margin:0; z-index:999;}
+#img{ position:fixed; left:50%; margin-left:-110px; top:50%; margin-top:-110px;}
 
 
 

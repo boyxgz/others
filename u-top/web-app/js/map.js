@@ -6,7 +6,11 @@ function Show_Hidden(trid){
     }
 }
 
-/*页面代码
-onclick="Show_Hidden(back1)"  点击
-id="back1"  内容
-*/
+function showHiddenQr(trid,url){
+    if(trid.style.display=="block"){
+    	trid.style.display='none';
+    }else{
+    	$('#imgQr').attr("src",url);
+    	trid.style.display='block';
+    }
+}

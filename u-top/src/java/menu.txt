@@ -2,17 +2,7 @@
      "button":[
       {
 		   "type":"view",
-		   "name":"优米商城",
-		   "url":"http://youmi.sh-hansi.com/shop"
-      },
-      {
-		   "type":"view",
-		   "name":"提货券",
-		   "url":"http://youmi.sh-hansi.com/shop/myOrders"
-      },
-      {
-		   "type":"view",
-		   "name":"关于我们",
-		   "url":"http://youmi.sh-hansi.com/redirection/path/aboutUs"
+		   "name":"🎁好客商城",
+		   "url":"http://hzyoumi.sh-hansi.com/shop2"
       }]
  }

@@ -104,6 +104,9 @@ section {
 
 .sidebar li {
 font-family:"微软雅黑";
+}
+.sidebar li a{ display:block;
+font-family:"微软雅黑";
     padding: 1em;
 	
     line-height: 32px;

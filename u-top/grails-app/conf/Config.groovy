@@ -65,15 +65,19 @@ grails.databinding.dateFormats = [
 ]
 
 environments {
+//	alioss.images.rootUrl = "http://images.sh-hansi.com/"
+//	alioss.bucket.name = "res_images"
+	alioss.images.rootUrl = "http://hzimages.sh-hansi.com/"
+	alioss.bucket.name = "huzh"
+	templateMessage.delivery_validation = "gzpaXcpHxH0f6-oeuy6NYc6AlRI-4D5QXpLeS82U1Gw"
+	templateMessage.delivery_finished = "wDUfjVg0SDxpBXaEYZyImHFjP4CPj0Cg_9Q4yO1KeoM"
     development {
         grails.logging.jul.usebridge = true
-		grails.serverURL = "http://surelution.sh-hansi.com"
-		alioss.images.rootUrl = "http://images.sh-hansi.com/"
+		grails.serverURL = "http://hzyoumi.sh-hansi.com"
     }
     production {
         grails.logging.jul.usebridge = false
-        grails.serverURL = "http://youmi.sh-hansi.com"
-		alioss.images.rootUrl = "http://images.sh-hansi.com/"
+        grails.serverURL = "http://hzyoumi.sh-hansi.com"
     }
 }
 
