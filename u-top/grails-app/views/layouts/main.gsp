@@ -73,6 +73,9 @@
 				</sec:ifAnyGranted>
 				<sec:ifAnyGranted roles="ROLE_ADMIN">
 				<p>
+					<g:link url="${resource(dir:'productLabel')}" >商品分类维护</g:link>
+				</p>
+				<p>
 					<g:link url="${resource(dir:'orderForm')}" >误锁定代金券</g:link>
 				</p>
 				<p>

@@ -81,7 +81,7 @@ class Shop2Controller {
 
 	/**
 	 * 商品详情页
-	 * @param id
+	 * @param ProductPricePlan id
 	 * @return
 	 */
 	def 'product'(Long id) {
@@ -101,7 +101,7 @@ class Shop2Controller {
 		if(!itemCount) {
 			itemCount = 1
 		}
-		
+
 		[pricePlan:pricePlan, product:product, pictures:pictures, itemCount:itemCount]
 	}
 
@@ -112,14 +112,14 @@ class Shop2Controller {
 	def cart() {
 		def now = new Date()
 		def voucherId = params.voucherId
-		def inCart = params.inCart //判断链接来自购物车内还是外部跳入，为了当从外面条入时默认选中voucher
+		def inCart = params.inCart //判断链接来自购物车内还是外部跳入，为了当从外面跳入时默认选中voucher
 		def selectedVoucher
 		if(inCart != "1") {
-			def vs = Voucher.findAllBySubscriber(subscriber)?.collect(){sv->
-				if(sv.enabled &&
-					sv.status == VoucherStatus.NEW &&
-					sv.expiredAt >= new Date()) {
-					return sv
+			def vs = Voucher.findAllBySubscriber(subscriber)?.collect(){v->
+				if(v.enabled &&
+					v.status == VoucherStatus.NEW &&
+					v.expiredAt >= now) {
+					return v
 				}
 			}
 			if(vs && vs.size() > 0) {
@@ -130,12 +130,12 @@ class Shop2Controller {
 			Voucher sv = Voucher.get(voucherId)
 			if(sv && sv.enabled && 
 				sv.status == VoucherStatus.NEW && 
-				sv.expiredAt >= new Date() &&
+				sv.expiredAt >= now &&
 				sv.subscriber.id == subscriber.id) {
 				selectedVoucher = sv
 			}
 		}
-		def vouchers = Voucher.findAllBySubscriberAndEnabledAndStatusAndExpiredAtGreaterThan(subscriber, true, VoucherStatus.NEW, new Date())
+		def vouchers = Voucher.findAllBySubscriberAndEnabledAndStatusAndExpiredAtGreaterThan(subscriber, true, VoucherStatus.NEW, now)
 		
 		def newOrder = saleOrderService.findNewOrder(subscriber)
 		def orderItems
@@ -158,7 +158,7 @@ class Shop2Controller {
 
 	/**
 	 * ajax方式往购物车中添加商品
-	 * @param id
+	 * @param ProductPricePlan id
 	 * @return
 	 */
 	def addCart(Long id) {
@@ -273,7 +273,7 @@ class Shop2Controller {
 			}
 
 			def shouldPay = order.amount
-			
+
 			if(selectVoucher) {
 				shouldPay -= selectVoucher.amount
 				if(shouldPay < 0) {
@@ -348,7 +348,7 @@ class Shop2Controller {
 					
 					def tm = new TemplateMessage()
 					tm.url = "${Holders.config.grails.serverURL}/redirection/path/deliveryInfo"
-					tm.templateId = "jC0FO0-KkTK7u9i1Mpk0R_Csc2F0g2d6nTstyxH6GRc"
+					tm.templateId = Holders.config.templateMessage.order_succeed
 					tm.toUser = order.subscriber.openId
 					def items = SaleOrderItem.findAllByOrder(order)
 					def sb = new StringBuffer("您已成功购买：")

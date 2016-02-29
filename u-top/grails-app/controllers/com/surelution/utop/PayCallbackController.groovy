@@ -58,10 +58,10 @@ class PayCallbackController {
 				if(needNotify) {
 					def tm = new TemplateMessage()
 					tm.url = "${Holders.config.grails.serverURL}/redirection/path/deliveryInfo"
-					tm.templateId = "jC0FO0-KkTK7u9i1Mpk0R_Csc2F0g2d6nTstyxH6GRc"
+					tm.templateId = Holders.config.templateMessage.order_succeed
 					tm.toUser = order.subscriber.openId
 					def items = SaleOrderItem.findAllByOrder(order)
-					def sb = new StringBuffer("您已成功购买：")
+					def sb = new StringBuffer()
 					if(items) {
 						items.each {item->
 							sb.append(item.plan.product.name)

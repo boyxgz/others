@@ -116,7 +116,7 @@
 					
 						<td>${fieldValue(bean: productPricePlanInstance, field: "confirmedAt")}</td>
 					
-						<td>${fieldValue(bean: productPricePlanInstance, field: "confirmedBy")}</td>
+						<td>${fieldValue(bean: productPricePlanInstance, field: "confirmedBy.username")}</td>
 					
 						<td><g:formatBoolean boolean="${productPricePlanInstance.onSale}" /></td>
 					

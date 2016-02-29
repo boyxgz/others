@@ -90,6 +90,8 @@
 						<th>货号</th>
 					
 						<th>商品名称</th>
+					
+						<th>商品名称</th>
 						
 						<th>单价</th>
 					
@@ -111,6 +113,8 @@
 						<td>${product.code }</td>
 					
 						<td>${product.name }&nbsp;&nbsp;&nbsp;* ${product.packingCount }</td>
+					
+						<td>${product.category.name }</td>
 					
 						<td>${item[0].price }</td>
 						
