@@ -65,19 +65,34 @@ grails.databinding.dateFormats = [
 ]
 
 environments {
-//	alioss.images.rootUrl = "http://images.sh-hansi.com/"
-//	alioss.bucket.name = "res_images"
-	alioss.images.rootUrl = "http://hzimages.sh-hansi.com/"
-	alioss.bucket.name = "huzh"
-	templateMessage.delivery_validation = "gzpaXcpHxH0f6-oeuy6NYc6AlRI-4D5QXpLeS82U1Gw"
-	templateMessage.delivery_finished = "wDUfjVg0SDxpBXaEYZyImHFjP4CPj0Cg_9Q4yO1KeoM"
     development {
         grails.logging.jul.usebridge = true
-		grails.serverURL = "http://hzyoumi.sh-hansi.com"
+		grails.serverURL = "http://surelution.sh-hansi.com"
+
+		alioss.images.rootUrl = "http://surelution2.oss-cn-hangzhou.aliyuncs.com/"
+		alioss.bucket.name = "surelution2"
+		templateMessage.order_succeed = "SIPFzUt5y3oH3QGClJU9NnMKgKWKHB04CkjDmS8bXrs"
+		templateMessage.delivery_validation = "ZRFiw2QK98ad1R_fLdckROWeEHzIgqBWFeXRl16AWdE"
+		templateMessage.delivery_finished = "z9ALQhVBhIPp1qrGOn8cknv9e6oA9GWviQ2MO2d0FrA"
     }
     production {
         grails.logging.jul.usebridge = false
-        grails.serverURL = "http://hzyoumi.sh-hansi.com"
+
+		//huzhou
+//		grails.serverURL = "http://hzyoumi.sh-hansi.com"
+//		alioss.images.rootUrl = "http://hzimages.sh-hansi.com/"
+//		alioss.bucket.name = "huzh"
+//		templateMessage.delivery_validation = "gzpaXcpHxH0f6-oeuy6NYc6AlRI-4D5QXpLeS82U1Gw"
+//		templateMessage.delivery_finished = "wDUfjVg0SDxpBXaEYZyImHFjP4CPj0Cg_9Q4yO1KeoM"
+		//huzhou ends
+
+		//wenzhou
+		alioss.images.rootUrl = "http://images.sh-hansi.com/"
+		alioss.bucket.name = "res_images"
+		templateMessage.order_succeed = "0eYrM9BJM29UAb9C5zNLrXXrFhTc-cw3dRCFxoiZmqU"
+		templateMessage.delivery_validation = "i22yCSt70Tqi2nPI2Rnjlq3hkgf43OPQx-Asqj1i29A"
+		templateMessage.delivery_finished = "H_9LyMMGvJmUv7POiTDmuL8sgWnWZej41pbJP2o0Bes"
+		//wenzhou ends
     }
 }
 
