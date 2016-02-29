@@ -77,7 +77,6 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-
 		//huzhou
 //		grails.serverURL = "http://hzyoumi.sh-hansi.com"
 //		alioss.images.rootUrl = "http://hzimages.sh-hansi.com/"
