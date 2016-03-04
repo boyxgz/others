@@ -33,14 +33,11 @@
 <!--订单 -->      
 <g:each in="${orders }" var="order">
 <%
-	def ticket
-	if(order.status == SaleOrderStatus.PAID || order.status == SaleOrderStatus.DELIVERED) {
-		ticket = DeliveryTicket.findBySaleOrder(order)
-	}
+	def ticket = DeliveryTicket.findBySaleOrder(order)
 %>
 <div class="car_box" style="width:90%; margin:0 auto;">
   <ul style="border-top:none;">
-    <h2 style="text-align:left;" onclick="showHiddenQr(box,'${createLink(controller:'shop2', action:'deliveryQr', id:ticket.id)}')">提货号：<g:if test="${ticket }">${ticket.sn }</g:if><g:else>尚无</g:else><span>${order.status }</span></h2>
+    <h2 style="text-align:left;" onclick="showHiddenQr(box,'${createLink(controller:'shop2', action:'deliveryQr', id:ticket?.id)}')">提货号：<g:if test="${ticket }">${ticket.sn }</g:if><g:else>尚无</g:else><span>${order.status }</span></h2>
     <g:set var="items" value="${SaleOrderItem.findAllByOrderAndDeleted(order, false) }"/>
     <g:each in="${items }" var="item">
     	<li>${item.plan.product.name }&nbsp;${item.plan.product.spec }&nbsp;${item.plan.product.packingCount } X ${item.itemCount }<span>￥${item.itemCount * item.plan.price }</span></li>
