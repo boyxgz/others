@@ -81,11 +81,13 @@ environments {
 //		grails.serverURL = "http://hzyoumi.sh-hansi.com"
 //		alioss.images.rootUrl = "http://hzimages.sh-hansi.com/"
 //		alioss.bucket.name = "huzh"
+//		templateMessage.order_succeed = "0eYrM9BJM29UAb9C5zNLrXXrFhTc-cw3dRCFxoiZmqU"
 //		templateMessage.delivery_validation = "gzpaXcpHxH0f6-oeuy6NYc6AlRI-4D5QXpLeS82U1Gw"
 //		templateMessage.delivery_finished = "wDUfjVg0SDxpBXaEYZyImHFjP4CPj0Cg_9Q4yO1KeoM"
 		//huzhou ends
 
 		//wenzhou
+		grails.serverURL = "http://youmi.sh-hansi.com"
 		alioss.images.rootUrl = "http://images.sh-hansi.com/"
 		alioss.bucket.name = "res_images"
 		templateMessage.order_succeed = "0eYrM9BJM29UAb9C5zNLrXXrFhTc-cw3dRCFxoiZmqU"
