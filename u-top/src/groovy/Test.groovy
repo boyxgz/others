@@ -19,7 +19,7 @@ class Test {
 
 	public static void main(String[] args) {
         String cmd = "";
-        InputStreamReader isr = new InputStreamReader(new FileInputStream("/Users/johnny/Documents/workspace-ggts-3.3.0.RELEASE/u-top/src/java/menu.txt"), "utf8");
+        InputStreamReader isr = new InputStreamReader(new FileInputStream("/Users/johnny/git/others/u-top/src/java/menu.txt"), "utf8");
         BufferedReader br = new BufferedReader(isr);
         String line = br.readLine();
         while(line != null) {

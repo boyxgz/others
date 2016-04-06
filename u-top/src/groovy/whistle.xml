@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wx>
-<!-- 
+<!-- wenzhou  -->
 	<token>dsfdsdfgsdewr4365czxvbhgfju98</token>
 	<appid>wx5c9d390ffb129d3f</appid>
 	<secret>238763b10a84b861606b3fd1e7411304</secret>
 	<encodingAESKey>em8pFuBigXWBZxRUJRoWwvApGXDE2uUAfrGvUJ7WbLR</encodingAESKey>
- -->
-	<token>wx2fc522376d1831c4</token>
-	<appid>wx2fc522376d1831c4</appid>
-	<secret>95fe6dd42e9355220356a3b4b1ffcd83</secret>
+
+
+ 	<!-- moducheyou -->
+ 	<!-- 
+	<token>wx692c863c39474b56</token>
+	<appid>wx692c863c39474b56</appid>
+	<secret>582121beb0ea192b5a6e25f6df3f816d</secret>
+	<encodingAESKey>UZpFYi666wMlvNU4caHCUb8zwOH4qatffg7WDPue8tA</encodingAESKey>
+	 -->
+
+	<!-- huzhou 
+	<token>wx2d0db45f9c0c6737</token>
+	<appid>wx2d0db45f9c0c6737</appid>
+	<secret>6d10f94e2b05495564e5fa3f58838ad2</secret>
+	<encodingAESKey>6X3hKrNl4ZDtRBXUI6CHVn35GphCdp7S5ihBLAB0zYE</encodingAESKey>
+	-->
 
 	<checkRequestRestrictly>true</checkRequestRestrictly>
 	<processor-chain>
